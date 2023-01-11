@@ -1,0 +1,115 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+class Node {
+ public:
+  int data;
+  Node* prev;
+  Node* next;
+
+  Node(int data) {
+    this->data = data;
+    this->prev = NULL;
+    this->next = NULL;
+  }
+};
+
+class DoublyLinkedList {
+ public:
+  Node* head;
+  Node* tail;
+
+  DoublyLinkedList() {
+    this->head = NULL;
+    this->tail = NULL;
+  }
+
+  void insert_at_front(int data) {
+    Node* temp = new Node(data);
+    if (head == NULL) {
+      head = tail = temp;
+      return;
+    }
+    temp->next = head;
+    head->prev = temp;
+    head = temp;
+  }
+
+  void insert_at_end(int data) {
+    Node* temp = new Node(data);
+    if (tail == NULL) {
+      head = tail = temp;
+      return;
+    }
+    temp->prev = tail;
+    tail->next = temp;
+    tail = temp;
+  }
+
+  void delete_front() {
+    if (head == NULL) {
+      cout<<"No node in the list to delete";
+    }
+    if (head == tail) {
+      head = tail = NULL;
+      return;
+    }
+    head = head->next;
+    head->prev = NULL;
+  }
+
+  void delete_last() {
+    if (tail == NULL) {
+      cout<<"No node in the list to delete";
+    }
+    if (head == tail) {
+      head = tail = NULL;
+      return;
+    }
+    tail = tail->prev;
+    tail->next = NULL;
+  }
+
+  void display() {
+    Node* temp = head;
+    while (temp != NULL) {
+      cout << temp->data << " ";
+      temp = temp->next;
+    }
+    cout<<endl;
+  }
+};
+int main()
+{
+    DoublyLinkedList dl;
+while(true){ 
+    int choice,value;
+    cin>>choice;
+    if(choice == 0) break;
+    switch(choice) {
+        case 1:
+            cin>>value;
+            dl.insert_at_front(value);
+            break;
+        case 2:
+            cin>>value;
+            dl.insert_at_end(value);
+            break;
+        case 3:
+            dl.delete_front();
+            break;
+        case 4:
+            dl.delete_last();
+            break;
+        case 5:
+            dl.display();
+            break;
+        default:
+            cout<<"Invalid choice"<<endl;
+    }
+}
+}
+
